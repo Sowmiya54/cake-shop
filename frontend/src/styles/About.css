@@ -1,0 +1,132 @@
+/* General Reset */
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fff0f5;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffe4ec;
+  padding: 20px 40px;
+  height: 80px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo-image {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #d6336c;
+  font-family: 'Pacifico', cursive;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-list li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-list li a:hover {
+  color: #d6336c;
+}
+
+.nav-list li a.active {
+  border-bottom: 2px solid #d6336c;
+  color: #d6336c;
+}
+
+.navbar-text .profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  color: #333;
+}
+
+.profile-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+/* About Section */
+.about-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 20px;
+  background: url("https://img.freepik.com/free-photo/top-view-little-creamy-cake-with-sliced-fruits-it-white-desk-fruit-cake-sweet-biscuit-cookie_140725-30606.jpg?semt=ais_hybrid&w=740") no-repeat center;
+  background-size: cover;
+  min-height: calc(100vh - 160px);
+}
+
+.about-content {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 40px;
+  border-radius: 20px;
+  max-width: 700px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.about-content h2 {
+  font-size: 2.8rem;
+  color: #c2185b;
+  font-family: 'Pacifico', cursive;
+  margin-bottom: 20px;
+}
+
+.about-content p {
+  font-size: 1.1rem;
+  color: #444;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+/* Footer */
+.footer {
+  background-color: #000000;
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #ffffff;
+  border-top: 1px solid #ffc0cb;
+}
+
+.footer a {
+  color: #c2185b;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}

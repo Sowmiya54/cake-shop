@@ -1,0 +1,259 @@
+/* General Reset */
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fff;
+}
+
+/* Navbar Styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffd1dc;
+  padding: 20px 40px;
+  position: sticky;
+  top: 0;
+  height: 80px;
+  z-index: 1000;
+}
+
+/* Logo Section */
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo-image {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Nav List */
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-list li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding-bottom: 4px;
+  transition: all 0.3s ease;
+}
+
+.nav-list li a:hover {
+  color: #ff4081;
+}
+
+.nav-list li a.active {
+  font-weight: bold;
+  color: #ff4081;
+  border-bottom: 2px solid #ff4081;
+}
+
+/* Profile Section */
+.navbar-text {
+  display: flex;
+  align-items: center;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+}
+.cart-icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin-right: 10px; /* Space between cart and profile */
+}
+
+
+.profile-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+/* Banner */
+.banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 80px);
+  background-color: #fff;
+  background-image: url("https://img.freepik.com/premium-vector/abstract-dark-purple-background-design-modern-background-vector_527952-156.jpg");
+  background-size: cover;
+  background-position: center;
+  padding: 40px;
+}
+
+.banner-image {
+  width: 100%;
+  max-height: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+/* Footer */
+.footer {
+  background-color: #000000;
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #ffffff;
+  line-height: 1.6;
+}
+
+.footer a {
+  color: #ff4081;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* Most Viewed Section */
+.most-viewed {
+  padding: 30px;
+  background-color: #fff;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #d63384;
+}
+
+.cake-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 0 40px;
+}
+
+.cake-box {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+
+.cake-box:hover {
+  transform: translateY(-5px);
+}
+
+.cake-img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.cake-name {
+  margin: 10px 0 5px;
+  font-size: 18px;
+  color: #333;
+}
+
+.cake-rating {
+  color: #ffc107;
+  font-weight: bold;
+}
+
+/* Categories Section */
+.categories-section {
+  padding: 40px 20px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;  /* Centers the entire content */
+  justify-content: center;  /* Centers the content vertically */
+}
+
+.category-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;  /* Centers the items horizontally */
+  margin: 40px 0;
+  max-width: 1200px;  /* Controls the max width of category boxes */
+  width: 100%;  /* Ensures the category box is responsive */
+}
+
+.category-box:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.category-text {
+  flex: 1;
+  padding: 20px;
+  max-width: 500px;
+  text-align: center;  /* Centers the text */
+}
+
+.category-text h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #d32f2f;
+}
+
+.category-text p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.category-image {
+  flex: 1;
+  text-align: center;
+  max-width: 400px;
+  position: relative;
+}
+
+.category-image img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.image-label {
+  position: absolute;
+  bottom: 15px;
+  right: 20px;
+  background-color: rgba(0, 0, 0, 0.65);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* Section Title */
+.section-title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 30px;
+  color: #e91e63;
+}

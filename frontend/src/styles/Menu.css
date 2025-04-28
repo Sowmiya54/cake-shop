@@ -1,0 +1,107 @@
+/* ===== MENU PAGE BODY STYLING ===== */
+
+/* Main section */
+.category-section {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* Category buttons */
+.menu-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.menu-buttons button {
+  background-color: white;
+  border: 2px solid pink;
+  color: black;
+  padding: 10px 20px;
+  margin: 8px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+.menu-buttons button:hover {
+  background-color: #ffe4ec;
+}
+
+.menu-buttons button:focus {
+  color: deeppink;
+  outline: none;
+}
+
+/* Cake cards grid */
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px 30px; /* Added gap between rows */
+  padding: 10px 0;
+}
+
+/* Cake item card */
+.image-grid .cake-item {
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align to the top */
+  padding: 0; /* Removed extra padding */
+  height: 100%;
+}
+
+/* Image */
+.cake-img {
+  width: 100%;
+  height: 270px; /* Increased height */
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 5px; /* Reduced margin below the image */
+}
+
+/* Text and details */
+.cake-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px; /* Reduced padding */
+  margin-top: 0; /* Removed top margin */
+}
+
+.cake-details h3 {
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #222;
+}
+
+.cake-details p {
+  margin: 4px 0;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+/* Add to Cart button */
+.buy-button {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  margin-top: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.buy-button:hover {
+  background-color: #333;
+}

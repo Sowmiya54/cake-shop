@@ -1,0 +1,46 @@
+
+.register-page {
+    background-image: url('https://img.freepik.com/premium-photo/slice-white-chocolate-cake-with-raspberries-it_894067-4557.jpg');
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: blur(4px);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .register-container {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 320px;
+    font-family: sans-serif;
+  }
+  
+  input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #333;
+  }
+  
+  p {
+    margin-top: 15px;
+  }
+  

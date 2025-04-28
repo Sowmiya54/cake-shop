@@ -1,0 +1,101 @@
+/* ===== CREATIVE PAGE BODY STYLING ===== */
+
+/* Main body area between navbar and footer */
+.cake-options,
+.cake-display {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* Center the button group */
+.cake-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Buttons - no black background, just clean white with border */
+.cake-options button {
+  background-color: white;
+  border: 2px solid pink;
+  color: black;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+/* On hover - slight effect */
+.cake-options button:hover {
+  background-color: #ffe4ec;
+}
+
+/* Active button - when selected */
+.cake-options button:focus {
+  color: deeppink;
+  outline: none;
+}
+
+/* Grid layout for 5 boxes per row */
+.cake-display {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+/* Cake cards */
+.cake-display .cake-item {
+  background-color: #fff;
+  border: 1px solid #eee;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 270px;
+  height: 480px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Cake images */
+.cake-display .cake-item img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Button group below image */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  width: 100%;
+  gap: 10px;
+}
+
+/* Individual buttons */
+.buy-now-btn,
+.buy-button {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  flex: 1;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.buy-now-btn:hover,
+.buy-button:hover {
+  background-color: #333;
+}

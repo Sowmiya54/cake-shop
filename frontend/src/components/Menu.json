@@ -1,0 +1,39 @@
+{
+    "buttercreamCakes": [
+      { "name": "Chocolate Cake", "image": "images/m1.jpeg", "weight": "500g", "price": "₹500" },
+      { "name": "Vanilla Cake", "image": "images/m2.jpeg", "weight": "500g", "price": "₹480" },
+      { "name": "Strawberry Cake", "image": "images/m3.jpg", "weight": "500g", "price": "₹550" },
+      { "name": "Lemon Cake", "image": "images/m4.jpeg", "weight": "500g", "price": "₹520" },
+      { "name": "Red Velvet Cake", "image": "images/m5.jpg", "weight": "500g", "price": "₹600" },
+      { "name": "Carrot Cake", "image": "images/m6.jpg", "weight": "500g", "price": "₹530" },
+      { "name": "Coffee Cake", "image": "images/m7.jpeg", "weight": "500g", "price": "₹510" },
+      { "name": "Pineapple Cake", "image": "images/m8.webp", "weight": "500g", "price": "₹490" },
+      { "name": "Butter Pecan Cake", "image": "images/m9.jpg", "weight": "500g", "price": "₹580" },
+      { "name": "Peach Cake", "image": "images/m10.jpg", "weight": "500g", "price": "₹560" }
+    ],
+    "freshCreamCakes": [
+      { "name": "Black Forest", "image": "images/m11.jpeg", "weight": "500g", "price": "₹500" },
+      { "name": "White Forest", "image": "images/m12.webp", "weight": "500g", "price": "₹520" },
+      { "name": "Fresh Mango Cake", "image": "images/m13.jpg", "weight": "500g", "price": "₹550" },
+      { "name": "Kiwi Delight", "image": "images/m14.jpeg", "weight": "500g", "price": "₹540" },
+      { "name": "Blueberry Fresh Cream", "image": "images/m15.jpeg", "weight": "500g", "price": "₹580" },
+      { "name": "Fruit Overload", "image": "images/m16.avif", "weight": "500g", "price": "₹600" },
+      { "name": "Fresh Strawberry Cream", "image": "images/m17.jpg", "weight": "500g", "price": "₹560" },
+      { "name": "Chocolate Fresh Cream", "image": "images/m18.jpg", "weight": "500g", "price": "₹530" },
+      { "name": "Pineapple Cream Cake", "image": "images/m19.jpeg", "weight": "500g", "price": "₹510" },
+      { "name": "Orange Zest Cake", "image": "images/m20.jpeg", "weight": "500g", "price": "₹520" }
+    ],
+    "sliceCakes": [
+      { "name": "Opera Slice", "image": "images/m21.jpeg", "weight": "100g", "price": "₹150" },
+      { "name": "Chocolate Mousse Slice", "image": "images/m22.webp", "weight": "100g", "price": "₹160" },
+      { "name": "Tiramisu Slice", "image": "images/m23.jpg", "weight": "100g", "price": "₹180" },
+      { "name": "Cheesecake Slice", "image": "images/m24.jpg", "weight": "100g", "price": "₹170" },
+      { "name": "Strawberry Slice", "image": "images/m25.jpg", "weight": "100g", "price": "₹160" },
+      { "name": "Vanilla Mousse", "image": "images/m26.jpg", "weight": "100g", "price": "₹155" },
+      { "name": "Choco-Chip Slice", "image": "images/m27.jpg", "weight": "100g", "price": "₹165" },
+      { "name": "Mocha Slice", "image": "images/m28.jpeg", "weight": "100g", "price": "₹170" },
+      { "name": "Fruit Slice", "image": "images/m29.jpeg", "weight": "100g", "price": "₹160" },
+      { "name": "Lemon Tart Slice", "image": "images/m30.avif", "weight": "100g", "price": "₹150" }
+    ]
+  }
+  
