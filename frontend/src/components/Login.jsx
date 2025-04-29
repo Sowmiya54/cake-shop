@@ -13,8 +13,18 @@ const Login = () => {
 
     try {
       const res = await axios.post('http://localhost:5000/login', { email, password });
+
       alert(res.data.message);
-      navigate('/'); // or homepage after login
+
+      // Assuming the response contains a 'role' property that determines if it's 'admin' or 'user'
+      const userRole = res.data.role;
+
+      // Redirect based on role
+      if (userRole === 'admin') {
+        navigate('/admin'); // Redirect to Admin page if the role is admin
+      } else {
+        navigate('/admin'); // Redirect to User Dashboard if it's a regular user
+      }
     } catch (err) {
       alert(err.response.data.message);
     }

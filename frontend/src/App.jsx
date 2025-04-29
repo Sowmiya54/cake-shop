@@ -6,20 +6,22 @@ import Menu from './components/Menu';
 import Login from './components/Login';
 import Register from './components/Register';
 import Cart from './components/Cart';
-import { CartProvider } from './components/CartContext'; // ✅ Add this line
+import { CartProvider } from './components/CartContext'; 
+import AdminPage from './components/Admin'; // Add this import for AdminPage
 
 function App() {
   return (
-    <CartProvider> {/* ✅ Wrap everything inside CartProvider */}
+    <CartProvider>
       <Router>
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/about" element={<About />} />
           <Route path="/creative" element={<Creative />} />
           <Route path="/menu" element={<Menu />} />
-          <Route path="/login" element={<Login />} /> 
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/admin" element={<AdminPage />} /> {/* Add the Admin page route here */}
         </Routes>
       </Router>
     </CartProvider>
