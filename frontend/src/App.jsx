@@ -7,7 +7,8 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Cart from './components/Cart';
 import { CartProvider } from './components/CartContext'; 
-import AdminPage from './components/Admin'; // Add this import for AdminPage
+import AdminPage from './components/Admin'; 
+import Order from './components/Order'; // Import Order page
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/admin" element={<AdminPage />} /> {/* Add the Admin page route here */}
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/order" element={<Order />} /> {/* Add the Order page route here */}
         </Routes>
       </Router>
     </CartProvider>

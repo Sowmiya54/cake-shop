@@ -49,7 +49,7 @@ app.post('/login', async (req, res) => {
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) return res.status(400).json({ message: 'Invalid password' });
 
-  const token = jwt.sign({ id: user._id }, 'jwt-secret', { expiresIn: '1h' });
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
   res.json({ message: 'Login successful', token });
 });
 
@@ -77,13 +77,26 @@ app.get('/api/cart', async (req, res) => {
   res.json(items);
 });
 
+// ✅ Delete item from cart (DELETE)
+app.delete('/api/cart/:id', async (req, res) => {
+  try {
+    const deletedItem = await CartItem.findByIdAndDelete(req.params.id);
+    if (!deletedItem) {
+      return res.status(404).json({ message: 'Item not found' });
+    }
+    res.json({ message: 'Item deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ message: 'Error deleting item', error: err.message });
+  }
+});
+
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
 .then(() => console.log('✅ MongoDB connected'))
-.catch((err) => console.log('❌ MongoDB connection error:', err));
+.catch((err) => console.log(`❌ MongoDB connection error: ${err.message}`));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

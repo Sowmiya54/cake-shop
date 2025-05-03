@@ -1,43 +1,68 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import '../styles/HomePage.css';
+import '../styles/Cart.css';
+
+const parsePrice = (priceString) => {
+  return parseFloat(priceString.replace(/[^\d.]/g, '')) || 0;
+};
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const location = useLocation();
-  const navigate = useNavigate(); // For navigating to the payment page
+  const navigate = useNavigate();
 
-  // Fetch cart items when component mounts
   useEffect(() => {
     fetch("http://localhost:5000/api/cart")
       .then(res => res.json())
-      .then(data => setCartItems(data))
+      .then(data => {
+        const itemsWithQuantity = data.map(item => ({
+          ...item,
+          quantity: 1,
+          weight: item.name.trim().toLowerCase() === 'slice cake' ? 1 : parseFloat(item.weight) || 1
+        }));
+        setCartItems(itemsWithQuantity);
+      })
       .catch(err => console.log(err));
   }, []);
 
-  // Handle removing an item from the cart
   const handleRemoveItem = (id) => {
     fetch(`http://localhost:5000/api/cart/${id}`, {
       method: 'DELETE',
     })
       .then(() => {
-        setCartItems(cartItems.filter(item => item.id !== id));
+        setCartItems(cartItems.filter(item => item._id !== id));
       })
       .catch(err => console.log(err));
   };
 
-  // Calculate subtotal by summing the prices of the cart items
+  const handleQuantityChange = (id, quantity) => {
+    const updatedItems = cartItems.map(item =>
+      item._id === id ? { ...item, quantity: parseInt(quantity) || 1 } : item
+    );
+    setCartItems(updatedItems);
+  };
+
+  const handleWeightChange = (id, weight) => {
+    const updatedItems = cartItems.map(item =>
+      item._id === id && item.name.trim().toLowerCase() !== 'slice cake'
+        ? { ...item, weight: parseFloat(weight) || 1 }
+        : item
+    );
+    setCartItems(updatedItems);
+  };
+
   const calculateSubtotal = () => {
-    // Ensure price is a number
     return cartItems.reduce((total, item) => {
-      const price = parseFloat(item.price);
-      return !isNaN(price) ? total + price : total;
+      const price = parsePrice(item.price);
+      return !isNaN(price)
+        ? total + price * item.quantity * item.weight
+        : total;
     }, 0).toFixed(2);
   };
 
-  // Handle proceeding to the payment page
-  const handleProceedToPay = () => {
-    navigate('/payment');  // Replace '/payment' with your actual payment route
+  const handlePlaceOrder = () => {
+    navigate('/order', { state: { cartItems } });
   };
 
   return (
@@ -59,11 +84,7 @@ const Cart = () => {
         </ul>
         <div className="navbar-text">
           <Link to="/cart" className="cart">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/263/263142.png"
-              alt="Cart Icon"
-              className="cart-icon"
-            />
+            <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="Cart Icon" className="cart-icon" />
           </Link>
           <Link to="/login" className="profile">
             <img
@@ -77,30 +98,79 @@ const Cart = () => {
       </nav>
 
       <div className="cart-container" style={{ padding: '2rem', backgroundColor: 'white', flex: 1 }}>
-        <h2>Your Cart</h2>
+        <div className="cart-header">
+          <h2>Your Cart</h2>
+        </div>
         {cartItems.length === 0 ? (
           <p>Your cart is empty.</p>
         ) : (
           <div className="cart-item-list">
-            {cartItems.map((item) => (
-              <div key={item.id} className="cart-item">
-                <img src={item.image} alt={item.name} className="cart-item-image" />
-                <div className="cart-item-details">
-                  <h3>{item.name}</h3>
-                  <p>Price: ${item.price}</p>
-                  <p>Weight: {item.weight}</p>
-                  <button onClick={() => handleRemoveItem(item.id)}>Remove from Cart</button>
+            {cartItems.map((item) => {
+              const price = parsePrice(item.price);
+              const totalPrice = (price * item.quantity * item.weight).toFixed(2);
+
+              return (
+                <div key={item._id} className="cart-item-container">
+                  <div className="cart-item">
+                    <img src={item.image} alt={item.name} className="cart-item-image" />
+                    <div className="cart-item-details">
+                      <h3>{item.name}</h3>
+
+                      <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        {item.name.trim().toLowerCase() !== 'slice cake' ? (
+                          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                            <label htmlFor={`weight-${item._id}`}>Weight:</label>
+                            <input
+                              type="number"
+                              id={`weight-${item._id}`}
+                              value={item.weight}
+                              min="0.1"
+                              step="0.1"
+                              onChange={(e) => handleWeightChange(item._id, e.target.value)}
+                              style={{ marginLeft: '10px', padding: '5px', width: '60px' }}
+                            />
+                          </div>
+                        ) : (
+                          <p>Weight: 1</p>
+                        )}
+
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <label htmlFor={`quantity-${item._id}`}>Quantity:</label>
+                          <input
+                            type="number"
+                            id={`quantity-${item._id}`}
+                            value={item.quantity}
+                            min="1"
+                            onChange={(e) => handleQuantityChange(item._id, e.target.value)}
+                            style={{ marginLeft: '10px', padding: '5px', width: '60px' }}
+                          />
+                        </div>
+                      </div>
+
+                      <p>
+                        <strong>Total Price: ₹{totalPrice}</strong>
+                      </p>
+
+                      <button
+                        onClick={() => handleRemoveItem(item._id)}
+                        style={{ marginTop: '10px', backgroundColor: 'red', color: 'white', border: 'none', padding: '8px 16px', borderRadius: '5px' }}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
-        
-        {/* Subtotal Section */}
+
         {cartItems.length > 0 && (
           <div className="subtotal">
-            <p><strong>Subtotal:</strong> ${calculateSubtotal()}</p>
-            <button onClick={handleProceedToPay} className="proceed-to-pay-btn">Proceed to Pay</button>
+            <p><strong>Subtotal:</strong> ₹{calculateSubtotal()}</p>
+            <div className="buy-btn-container">
+              <button onClick={handlePlaceOrder} className="buy-btn">Place Order</button>
+            </div>
           </div>
         )}
       </div>

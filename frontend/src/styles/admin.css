@@ -1,148 +1,125 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f1f1f1;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .admin-container {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-  }
-  
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  h1 {
-    font-size: 2rem;
-  }
-  
-  .add-cake-btn {
-    padding: 10px 20px;
-    font-size: 1rem;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .add-cake-btn:hover {
-    background-color: #45a049;
-  }
-  
-  .cakes-list {
-    margin-top: 40px;
-  }
-  
-  .cakes-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .cakes-table th,
-  .cakes-table td {
-    padding: 10px;
-    text-align: center;
-  }
-  
-  .cakes-table th {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  .cake-image {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-  }
-  
-  button {
-    padding: 5px 10px;
-    margin: 5px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .edit-btn {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  .delete-btn {
-    background-color: #f44336;
-    color: white;
-  }
-  
-  .edit-btn:hover {
-    background-color: #45a049;
-  }
-  
-  .delete-btn:hover {
-    background-color: #e41f1f;
-  }
-  
-  /* Modal Styling */
-  .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    width: 400px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .modal-content h2 {
-    margin-bottom: 20px;
-  }
-  
-  .modal-content form label {
-    display: block;
-    margin: 10px 0 5px;
-  }
-  
-  .modal-content form input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .modal-content button {
-    width: 48%;
-    padding: 10px;
-    margin: 10px 1%;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .modal-content button[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  .modal-content button[type="button"] {
-    background-color: #f44336;
-    color: white;
-  }
-  
+/* src/styles/Admin.css */
+
+.admin-dashboard {
+  background-color: #f8f9fa;
+  padding: 30px;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.title {
+  text-align: center;
+  font-size: 32px;
+  color: #cc3366;
+  margin-bottom: 20px;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.orders-table th,
+.orders-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+  color: #333;
+}
+
+.orders-table th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.orders-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+.cake-img {
+  width: 70px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.view-btn {
+  background-color: #cc3366;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.view-btn:hover {
+  background-color: #aa2255;
+}
+
+.checkbox-cell input[type="checkbox"] {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+/* Modal styling */
+.order-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.order-modal-content {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  width: 380px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.order-modal-content h2 {
+  color: #cc3366;
+  margin-bottom: 15px;
+}
+
+.cake-img-large {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.order-modal-content p {
+  margin: 8px 0;
+  font-size: 15px;
+  color: #444;
+}
+
+.order-modal-content button {
+  margin-top: 15px;
+  padding: 8px 16px;
+  background-color: #cc3366;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.order-modal-content button:hover {
+  background-color: #aa2255;
+}

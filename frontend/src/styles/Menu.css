@@ -40,7 +40,7 @@
 .image-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px 30px; /* Added gap between rows */
+  gap: 20px 30px;
   padding: 10px 0;
 }
 
@@ -53,27 +53,30 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Align to the top */
-  padding: 0; /* Removed extra padding */
-  height: 100%;
+  justify-content: flex-start;
+  padding: 0;
+  height: auto;
 }
 
-/* Image */
+/* Image fills top part */
 .cake-img {
-  width: 100%;
-  height: 270px; /* Increased height */
+  width: 300px !important;  /* Set width in pixels */
+  height: 300px !important; /* Set height in pixels */
   object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 5px; /* Reduced margin below the image */
+  border-radius: 12px 12px 0 0;
+  display: block;
+  margin-bottom: 0;
 }
+
+
 
 /* Text and details */
 .cake-details {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 5px; /* Reduced padding */
-  margin-top: 0; /* Removed top margin */
+  padding: 15px;
+  margin-top: 0;
 }
 
 .cake-details h3 {

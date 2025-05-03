@@ -29,7 +29,8 @@ const Menu = () => {
           <img src={cake.image} alt={cake.name} className="cake-img" />
           <div className="cake-details">
             <h3>{cake.name}</h3>
-            <p>Weight: {cake.weight}</p>
+            {/* Conditionally render weight */}
+            {selectedCategory !== "slicecakes" && <p>Weight: {cake.weight}</p>}
             <p>Price: {cake.price}</p>
             <button
               className="buy-button"
