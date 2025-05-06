@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
 });
 const User = mongoose.model('User', userSchema);
 
-// Cart item schema and model (for cart items)
+// Cart item schema and model
 const cartItemSchema = new mongoose.Schema({
   userId: mongoose.Schema.Types.ObjectId,
   name: String,
@@ -25,6 +25,26 @@ const cartItemSchema = new mongoose.Schema({
   price: String,
 });
 const CartItem = mongoose.model('CartItem', cartItemSchema);
+
+// Order schema and model
+const orderSchema = new mongoose.Schema({
+  cartItems: [{
+    name: String,
+    image: String,
+    weight: String,
+    price: String,
+    quantity: Number,
+  }],
+  totalAmount: { type: Number, required: true },
+  deliveryDetails: {
+    name: String,
+    address: String,
+    phoneNumber: String,
+    deliveryDate: Date,
+  },
+  createdAt: { type: Date, default: Date.now },
+});
+const Order = mongoose.model('Order', orderSchema);
 
 // Register route
 app.post('/register', async (req, res) => {
@@ -53,31 +73,22 @@ app.post('/login', async (req, res) => {
   res.json({ message: 'Login successful', token });
 });
 
-// Add to Cart route (POST)
+// Add to Cart
 app.post('/api/cart', async (req, res) => {
   const { name, image, weight, price, userId } = req.body;
-
-  // Create a new cart item and associate it with a user
-  const newCartItem = new CartItem({
-    userId,
-    name,
-    image,
-    weight,
-    price,
-  });
-
+  const newCartItem = new CartItem({ userId, name, image, weight, price });
   await newCartItem.save();
   res.json({ message: 'Item added to cart successfully!' });
 });
 
-// Get Cart items (GET)
+// Get Cart Items
 app.get('/api/cart', async (req, res) => {
-  const { userId } = req.query;  // Fetch cart items for a specific user
+  const { userId } = req.query;
   const items = await CartItem.find({ userId });
   res.json(items);
 });
 
-// ✅ Delete item from cart (DELETE)
+// Delete Cart Item
 app.delete('/api/cart/:id', async (req, res) => {
   try {
     const deletedItem = await CartItem.findByIdAndDelete(req.params.id);
@@ -90,7 +101,34 @@ app.delete('/api/cart/:id', async (req, res) => {
   }
 });
 
-// Connect to MongoDB
+// ✅ Place Order (without userId)
+app.post('/api/orders', async (req, res) => {
+  const { cartItems, totalAmount, deliveryDetails } = req.body;
+
+  console.log('📦 Incoming order data:', req.body); // ✅ Debug log
+
+  const newOrder = new Order({
+    cartItems,
+    totalAmount,
+    deliveryDetails,
+  });
+
+  try {
+    await newOrder.save();
+    res.status(201).json({ message: 'Order placed successfully', orderId: newOrder._id });
+  } catch (err) {
+    console.error('❌ Error placing order:', err); // ✅ Log full error
+    res.status(500).json({ message: 'Failed to place order', error: err.message });
+  }
+});
+
+// ✅ Get Orders (without userId)
+app.get('/api/orders', async (req, res) => {
+  const orders = await Order.find();
+  res.json(orders);
+});
+
+// ✅ MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -98,5 +136,6 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => console.log('✅ MongoDB connected'))
 .catch((err) => console.log(`❌ MongoDB connection error: ${err.message}`));
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Server start
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

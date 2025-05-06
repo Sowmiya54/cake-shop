@@ -1,29 +1,31 @@
-/* src/styles/Admin.css */
-
+/* Admin Dashboard Main Layout */
 .admin-dashboard {
-  background-color: #f8f9fa;
   padding: 30px;
-  min-height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  min-height: 100vh;
 }
 
 .title {
   text-align: center;
-  font-size: 32px;
-  color: #cc3366;
-  margin-bottom: 20px;
+  font-size: 36px;
+  margin-bottom: 30px;
+  color: #d6336c;
 }
 
+/* Table Layout */
 .table-wrapper {
   overflow-x: auto;
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
 }
 
 .orders-table {
   width: 100%;
   border-collapse: collapse;
-  background-color: white;
-  border: 1px solid #e0e0e0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  font-size: 16px;
 }
 
 .orders-table th,
@@ -31,95 +33,120 @@
   border: 1px solid #ddd;
   padding: 12px;
   text-align: center;
-  color: #333;
+  vertical-align: middle;
 }
 
 .orders-table th {
-  background-color: #f2f2f2;
-  color: #333;
+  background-color: #f2f2f2;  /* Light heading background */
+  color: #000;                /* Black heading text */
+  font-weight: bold;
 }
 
-.orders-table tr:hover {
-  background-color: #f9f9f9;
-}
-
-.cake-img {
-  width: 70px;
-  height: 50px;
-  object-fit: cover;
-  border-radius: 6px;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
-}
-
-.view-btn {
-  background-color: #cc3366;
+/* View Button */
+.view-btn,
+.close-btn {
+  background-color: #d6336c;
   color: white;
+  padding: 6px 16px;
   border: none;
-  padding: 6px 12px;
-  border-radius: 20px;
-  cursor: pointer;
+  border-radius: 8px;
   font-size: 14px;
-}
-
-.view-btn:hover {
-  background-color: #aa2255;
-}
-
-.checkbox-cell input[type="checkbox"] {
-  transform: scale(1.2);
   cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
+  display: inline-block;
 }
 
-/* Modal styling */
+.view-btn:hover,
+.close-btn:hover {
+  background-color: #b82a58;
+}
+
+/* Modal Styles */
 .order-modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 999;
 }
 
 .order-modal-content {
-  background-color: #fff;
-  padding: 25px;
-  border-radius: 10px;
-  width: 380px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  text-align: center;
+  background-color: white;
+  padding: 30px;
+  max-width: 900px;
+  width: 95%;
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
 }
 
 .order-modal-content h2 {
-  color: #cc3366;
-  margin-bottom: 15px;
+  text-align: center;
+  color: #d6336c;
+  margin-bottom: 20px;
+}
+
+/* Cake Grid */
+.cake-img-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.cake-card {
+  background-color: #fff7f7;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 12px;
+  width: 160px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  text-align: center;
 }
 
 .cake-img-large {
   width: 100%;
+  height: 120px;
+  object-fit: cover;
   border-radius: 8px;
-  margin-bottom: 15px;
+  margin-bottom: 8px;
 }
 
-.order-modal-content p {
+.cake-card p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+/* Order Details Section */
+.order-details {
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 20px;
+  background-color: transparent; /* remove any pink or box background */
+}
+
+.order-details p {
+  font-size: 16px;
   margin: 8px 0;
-  font-size: 15px;
-  color: #444;
+  background-color: transparent; /* clean look */
 }
 
-.order-modal-content button {
-  margin-top: 15px;
-  padding: 8px 16px;
-  background-color: #cc3366;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
+/* Close Button Positioned Center */
+.close-btn {
+  margin: 20px auto 0;
+  display: block;
 }
 
-.order-modal-content button:hover {
-  background-color: #aa2255;
+/* Disable background scroll when modal is open */
+body.modal-open {
+  overflow: hidden;
 }

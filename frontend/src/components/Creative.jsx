@@ -10,24 +10,23 @@ const Creative = () => {
   const [category, setCategory] = React.useState("wedding");
 
   const handleAddToCart = async (cake) => {
-    const userId = "some-user-id"; // Replace with actual logic if available
+  try {
+    const response = await axios.post("http://localhost:5000/api/cart", {
+      cakeId: cake._id || cake.name, // fallback to name if no _id
+      name: cake.name,
+      weight: cake.weight,
+      price: cake.price,
+      image: cake.image,
+      quantity: 1,
+    });
+    alert("Item added to cart!");
+  } catch (error) {
+    console.error("Add to cart failed", error);
+    alert("Failed to add item to cart");
+  }
+};
 
-    try {
-      const response = await axios.post("http://localhost:5000/api/cart/add-to-cart", {
-        userId,
-        cakeId: cake._id || cake.name, // fallback to name if no _id
-        name: cake.name,
-        weight: cake.weight,
-        price: cake.price,
-        image: cake.image,
-        quantity: 1,
-      });
-      alert("Item added to cart!");
-    } catch (error) {
-      console.error("Add to cart failed", error);
-      alert("Failed to add item to cart");
-    }
-  };
+  
 
   return (
     <div className="homepage">

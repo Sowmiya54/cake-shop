@@ -6,6 +6,12 @@ const Order = () => {
   const location = useLocation();
   const cartItems = location.state?.cartItems || [];
   const [showSuccess, setShowSuccess] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    address: "",
+    phone: "",
+    deliveryDate: "",
+  });
 
   const calculateTotal = () => {
     return cartItems.reduce((total, item) => {
@@ -14,10 +20,42 @@ const Order = () => {
     }, 0).toFixed(2);
   };
 
-  const handlePlaceOrder = (e) => {
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handlePlaceOrder = async (e) => {
     e.preventDefault();
-    setShowSuccess(true);
-    setTimeout(() => setShowSuccess(false), 3000); // hide after 3 seconds
+
+    const orderData = {
+      
+      cartItems,
+      totalAmount: parseFloat(calculateTotal()),
+      deliveryDetails: {
+        name: formData.name,
+        address: formData.address,
+        phoneNumber: formData.phone,
+        deliveryDate: formData.deliveryDate,
+      },
+    };
+
+    try {
+      const response = await fetch("http://localhost:5000/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(orderData),
+      });
+
+      if (response.ok) {
+        setShowSuccess(true);
+        setTimeout(() => setShowSuccess(false), 3000);
+      } else {
+        alert("Failed to place order.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Error placing order.");
+    }
   };
 
   return (
@@ -93,10 +131,36 @@ const Order = () => {
         <div className="order-form-wrapper">
           <h2 className="form-title">Delivery Details</h2>
           <form className="order-form" onSubmit={handlePlaceOrder}>
-            <input type="text" placeholder="Full Name" required />
-            <textarea placeholder="Delivery Address" required />
-            <input type="tel" placeholder="Phone Number" required />
-            <input type="date" required />
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              placeholder="Full Name"
+              required
+            />
+            <textarea
+              name="address"
+              value={formData.address}
+              onChange={handleInputChange}
+              placeholder="Delivery Address"
+              required
+            />
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleInputChange}
+              placeholder="Phone Number"
+              required
+            />
+            <input
+              type="date"
+              name="deliveryDate"
+              value={formData.deliveryDate}
+              onChange={handleInputChange}
+              required
+            />
             <button type="submit">Place Order</button>
           </form>
         </div>
@@ -113,4 +177,3 @@ const Order = () => {
 };
 
 export default Order;
-
