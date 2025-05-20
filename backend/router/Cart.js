@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const CartItem = require('../models/cart'); // Adjust path if needed
+const CartItem = require('../model/cart'); // Adjust path if needed
 const mongoose = require('mongoose');
 
 // Add item to cart

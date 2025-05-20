@@ -1,14 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import '../styles/HomePage.css';
 import '../styles/Cart.css';
+import imageCompression from "browser-image-compression";
 
-const parsePrice = (priceString) => {
-  return parseFloat(priceString.replace(/[^\d.]/g, '')) || 0;
+const parsePrice = (priceString) => parseFloat(priceString.replace(/[^\d.]/g, '')) || 0;
+
+// Example custom cake prices by name
+const customCakePrices = {
+  "custom chocolate cake": 800,
+  "custom vanilla cake": 700,
+  "custom red velvet cake": 900,
+  "custom fruit cake": 850,
 };
+
+const generateRandomId = () => '_' + Math.random().toString(36).substr(2, 9);
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
+  const [imagePreview, setImagePreview] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -27,13 +38,18 @@ const Cart = () => {
   }, []);
 
   const handleRemoveItem = (id) => {
-    fetch(`http://localhost:5000/api/cart/${id}`, {
-      method: 'DELETE',
-    })
-      .then(() => {
+    const isCustom = id.startsWith('_');
+    console.log("isCustom", isCustom);
+    console.log("id", id);
+    if (!isCustom) {
+      fetch(`http://localhost:5000/api/cart/${id}`, {
+        method: 'DELETE',
+      }).then(() => {
         setCartItems(cartItems.filter(item => item._id !== id));
-      })
-      .catch(err => console.log(err));
+      }).catch(err => console.log(err));
+    } else {
+      setCartItems(cartItems.filter(item => item._id !== id));
+    }
   };
 
   const handleQuantityChange = (id, quantity) => {
@@ -45,9 +61,7 @@ const Cart = () => {
 
   const handleWeightChange = (id, weight) => {
     const updatedItems = cartItems.map(item =>
-      item._id === id && item.name.trim().toLowerCase() !== 'slice cake'
-        ? { ...item, weight: parseFloat(weight) || 1 }
-        : item
+      item._id === id ? { ...item, weight: parseFloat(weight) || 1 } : item
     );
     setCartItems(updatedItems);
   };
@@ -64,6 +78,67 @@ const Cart = () => {
   const handlePlaceOrder = () => {
     navigate('/order', { state: { cartItems } });
   };
+
+  const handleImageUpload = async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  // ✅ Step 1: Compress the image
+  const options = {
+    maxSizeMB: 1,           // Compress to ~1 MB
+    maxWidthOrHeight: 800,  // Resize if needed
+    useWebWorker: true,
+  };
+
+  try {
+    const compressedFile = await imageCompression(file, options);
+
+    const reader = new FileReader();
+    reader.onloadend = async () => {
+      setImagePreview(reader.result);
+
+      const cakeName = prompt("Enter cake name (e.g., Custom Chocolate Cake)")?.trim().toLowerCase();
+      if (!cakeName) return;
+
+      const price = customCakePrices[cakeName] || 750;
+      const weight = parseFloat(prompt("Enter weight (in kg):", "1")) || 1;
+      const quantity = parseInt(prompt("Enter quantity:", "1")) || 1;
+
+      const newItem = {
+        _id: generateRandomId(),
+        name: cakeName,
+        price: price.toString(),
+        weight: weight.toString(),
+        quantity: quantity.toString(),
+        image: reader.result, // base64
+      };
+
+      setCartItems((prev) => [...prev, newItem]);
+      setImagePreview(null);
+
+      try {
+        const response = await axios.post("http://localhost:5000/api/cart", {
+          cakeId: newItem._id,
+          name: newItem.name,
+          price: newItem.price,
+          weight: newItem.weight,
+          quantity: newItem.quantity,
+          image: newItem.image,
+        });
+        alert("Item added to cart!");
+      } catch (error) {
+        console.error("Add to cart failed", error);
+        alert("Failed to add item to cart");
+      }
+    };
+
+    // ✅ Step 2: Read compressed file as base64
+    reader.readAsDataURL(compressedFile);
+  } catch (err) {
+    console.error("Image compression failed", err);
+    alert("Failed to compress image");
+  }
+};
 
   return (
     <div className="homepage" style={{ backgroundColor: 'white', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -101,6 +176,14 @@ const Cart = () => {
         <div className="cart-header">
           <h2>Your Cart</h2>
         </div>
+
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImageUpload}
+          style={{ marginBottom: '20px' }}
+        />
+
         {cartItems.length === 0 ? (
           <p>Your cart is empty.</p>
         ) : (
@@ -117,22 +200,18 @@ const Cart = () => {
                       <h3>{item.name}</h3>
 
                       <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        {item.name.trim().toLowerCase() !== 'slice cake' ? (
-                          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-                            <label htmlFor={`weight-${item._id}`}>Weight:</label>
-                            <input
-                              type="number"
-                              id={`weight-${item._id}`}
-                              value={item.weight}
-                              min="0.1"
-                              step="0.1"
-                              onChange={(e) => handleWeightChange(item._id, e.target.value)}
-                              style={{ marginLeft: '10px', padding: '5px', width: '60px' }}
-                            />
-                          </div>
-                        ) : (
-                          <p>Weight: 1</p>
-                        )}
+                        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                          <label htmlFor={`weight-${item._id}`}>Weight:</label>
+                          <input
+                            type="number"
+                            id={`weight-${item._id}`}
+                            value={item.weight}
+                            min="0.1"
+                            step="0.1"
+                            onChange={(e) => handleWeightChange(item._id, e.target.value)}
+                            style={{ marginLeft: '10px', padding: '5px', width: '60px' }}
+                          />
+                        </div>
 
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                           <label htmlFor={`quantity-${item._id}`}>Quantity:</label>
@@ -147,7 +226,7 @@ const Cart = () => {
                         </div>
                       </div>
 
-                      <p>
+                      <p style={{ marginTop: '10px' }}>
                         <strong>Total Price: ₹{totalPrice}</strong>
                       </p>
 
@@ -166,7 +245,7 @@ const Cart = () => {
         )}
 
         {cartItems.length > 0 && (
-          <div className="subtotal">
+          <div className="subtotal" style={{ marginTop: '30px' }}>
             <p><strong>Subtotal:</strong> ₹{calculateSubtotal()}</p>
             <div className="buy-btn-container">
               <button onClick={handlePlaceOrder} className="buy-btn">Place Order</button>

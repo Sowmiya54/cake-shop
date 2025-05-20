@@ -12,7 +12,7 @@ const Creative = () => {
   const handleAddToCart = async (cake) => {
   try {
     const response = await axios.post("http://localhost:5000/api/cart", {
-      cakeId: cake._id || cake.name, // fallback to name if no _id
+      cakeId: cake._id || cake.name,
       name: cake.name,
       weight: cake.weight,
       price: cake.price,
@@ -25,8 +25,6 @@ const Creative = () => {
     alert("Failed to add item to cart");
   }
 };
-
-  
 
   return (
     <div className="homepage">
